@@ -23,7 +23,7 @@ double get_seconds() {
 
 int main(int argc, char *argv[]) {
     // Extract arguments
-    double spin_for = 0.0;
+    double spin_for = 4.0;
     char *buf;
     if ((buf = getenv("QUERY_STRING")) != NULL) {
 	// just expecting a single number
