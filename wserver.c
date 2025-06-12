@@ -7,6 +7,13 @@
 
 char default_root[] = ".";
 
+double get_seconds()
+{
+	struct timeval t;
+	int rc = gettimeofday(&t, NULL);
+	assert(rc == 0);
+	return (double)((double)t.tv_sec + (double)t.tv_usec / 1e6);
+}
 //
 // ./wserver [-d <basedir>] [-p <portnum>]
 //
@@ -18,6 +25,11 @@ void *routine_thread(void *arg)
 	while (1)
 	{
 		int conn_fd = borrar(&request_buffer);
+		double time1 = get_seconds();
+		while ((get_seconds() - time1) < 3)
+		{
+			sleep(1);
+		}
 		request_handle(conn_fd);
 		close_or_die(conn_fd);
 	}
